@@ -20,7 +20,7 @@ Gizwits Data Access Android Demo App
 
     ▪	GizDataAccessSDK的jar包
         登录机智云官方网站http://gizwits.com的开发者中心，下载并解压最新版本的SDK。
-        下载后，将解压后的目录拷贝到复制到 Android 项目 libs 目录即可。
+        下载后，将解压后的 jar 文件 复制到 Android 项目的 libs 目录即可。
 
 
 问题反馈
