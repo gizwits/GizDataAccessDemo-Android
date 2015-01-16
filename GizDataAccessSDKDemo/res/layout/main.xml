@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btnLoad"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="下载" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="上传" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_below="@+id/buttonLayout"
+        android:id="@+id/tvVersion"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="sdk版本号" />
+
+    <ScrollView
+        android:id="@+id/terminalLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnClean"
+        android:layout_below="@+id/tvVersion"
+        android:layout_margin="10dp"
+        android:background="@android:color/darker_gray" >
+
+        <TextView
+            android:id="@+id/tvTerminal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:textColor="@android:color/white" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnClean"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:text="清屏" />
+
+</RelativeLayout>
