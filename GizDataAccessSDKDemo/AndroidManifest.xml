@@ -15,7 +15,6 @@
         android:name=".xpgApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme" >
         <activity
@@ -27,8 +26,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.gizwits.gizdataaccesssdkdemo.activitys.MainActivity" />
-        <activity android:name="com.gizwits.gizdataaccesssdkdemo.activitys.SaveActivity" />
+        <activity
+            android:name="com.gizwits.gizdataaccesssdkdemo.activitys.MainActivity"
+            android:label="数据处理" />
+        <activity
+            android:name="com.gizwits.gizdataaccesssdkdemo.activitys.SaveActivity"
+            android:label="数据上传" />
+        <activity
+            android:name="com.gizwits.gizdataaccesssdkdemo.activitys.ResetActivity"
+            android:label="密码重置" />
+        <activity
+            android:name="com.gizwits.gizdataaccesssdkdemo.activitys.ChangePswActivity"
+            android:label="密码修改" />
+        <activity
+            android:name="com.gizwits.gizdataaccesssdkdemo.activitys.ChangePhoneActivity"
+            android:label="实名修改手机" />
+        <activity
+            android:name="com.gizwits.gizdataaccesssdkdemo.activitys.TransPhoneActivity"
+            android:label="匿名转换手机" />
+        <activity
+            android:name="com.gizwits.gizdataaccesssdkdemo.activitys.TransMailActivity"
+            android:label="匿名转换实名(邮箱)" />
+        <activity
+            android:name="com.gizwits.gizdataaccesssdkdemo.activitys.ChangeMailActivity"
+            android:label="实名修改邮箱" />
+        <activity
+            android:name="com.gizwits.gizdataaccesssdkdemo.activitys.RegisterActivity"
+            android:label="注册" />
     </application>
 
 </manifest>

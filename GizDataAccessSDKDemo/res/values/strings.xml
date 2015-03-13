@@ -1,5 +1,25 @@
 <resources>
 
     <string name="app_name">GizDataAccessSDKDemo</string>
-
+	<string name="action_register">注册</string>
+	<string name="action_reset">重置密码</string>
+	<string name="action_logout">注销</string>
+	<string name="action_changePsw">修改密码</string>
+	<string name="action_change2phone">实名修改手机</string>
+	<string name="action_change2mail">实名修改邮箱</string>
+	<string name="action_anonychange2phone">匿名转换手机</string>
+	<string name="action_anonychange2mail">匿名转换实名(邮箱)</string>
+	
+	<string name="text_username">账号</string>
+	<string name="text_username_mail">账号／邮箱</string>
+	<string name="text_phone">手机号</string>
+	<string name="text_mail">邮箱</string>
+	<string name="text_passcode">密码</string>
+	<string name="text_oldpasscode">旧密码</string>
+	<string name="text_newpasscode">新密码</string>
+	<string name="text_code">验证码</string>
+	<string name="text_uid">uid</string>
+	<string name="text_token">token</string>
+	
+	
 </resources>

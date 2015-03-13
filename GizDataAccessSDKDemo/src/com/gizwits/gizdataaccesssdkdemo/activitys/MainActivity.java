@@ -33,6 +33,9 @@ import android.os.Bundle;
 import android.provider.Settings.Secure;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
@@ -56,7 +59,9 @@ import com.gizwits.gizdataaccesssdkdemo.R;
 import com.gizwits.gizdataaccesssdkdemo.R.id;
 import com.gizwits.gizdataaccesssdkdemo.R.layout;
 import com.gizwits.gizdataaccesssdkdemo.utils.DateUtils;
+import com.gizwits.gizdataaccesssdkdemo.utils.LoginType;
 import com.gizwits.gizdataaccesssdkdemo.utils.NetworkUtils;
+import com.gizwits.gizdataaccesssdkdemo.utils.RegexUtils;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -67,8 +72,7 @@ import com.gizwits.gizdataaccesssdkdemo.utils.NetworkUtils;
  * 
  * @author Lien
  */
-public class MainActivity extends Activity implements OnClickListener,
-		GizDataAccessSourceListener {
+public class MainActivity extends Activity implements OnClickListener {
 
 	/** The tv version. */
 	TextView tvVersion;
@@ -110,6 +114,48 @@ public class MainActivity extends Activity implements OnClickListener,
 	/** The load end time. */
 	long loadEndTime;
 
+	private GizDataAccessSourceListener accessSourceListener = new GizDataAccessSourceListener() {
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see com.gizwits.gizdataaccess.listener.GizDataAccessSourceListener#
+		 * didLoadData (com.gizwits.gizdataaccess.GizDataAccessSource,
+		 * org.json.JSONArray,
+		 * com.gizwits.gizdataaccess.entity.GizDataAccessErrorCode,
+		 * java.lang.String)
+		 */
+		@Override
+		public void didLoadData(GizDataAccessSource arg0, JSONArray jsonArray,
+				GizDataAccessErrorCode result, String message) {
+			if (result.getResult() == 0) {
+				if (jsonArray != null) {
+					buffer.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
+					for (int i = 0; i < jsonArray.length(); i++) {
+						try {
+							JSONObject jsonObject = jsonArray.getJSONObject(i);
+							buffer.append("attrs:"
+									+ jsonObject.get("attrs").toString() + "\n");
+							buffer.append("ts:"
+									+ DateUtils.getDateToString(jsonObject
+											.getLong("ts")) + "\n");
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+					}
+				} else {
+					buffer.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
+					buffer.append("暂无数据");
+
+				}
+			} else {
+				buffer.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
+				buffer.append("读取失败：" + message);
+			}
+			tvTerminal.setText(buffer.toString());
+		}
+
+	};
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -119,7 +165,7 @@ public class MainActivity extends Activity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.main);
 		tvTerminal = (TextView) findViewById(R.id.tvTerminal);
 		btnLoad = (Button) findViewById(R.id.btnLoad);
@@ -208,53 +254,14 @@ public class MainActivity extends Activity implements OnClickListener,
 			Log.i("loadData", "timeEndlong=" + loadEndTime);
 			Log.i("loadData",
 					"timeEndstr=" + DateUtils.getDateToString(loadEndTime));
-			new GizDataAccessSource(this).loadData(Constant.TOKEN,
-					Constant.PRODUCTKEY, Constant.DEVICE_SN, loadStartTime,
-					loadEndTime, limit, skip);
+			new GizDataAccessSource(accessSourceListener).loadData(
+					Constant.TOKEN, Constant.PRODUCTKEY, Constant.DEVICE_SN,
+					loadStartTime, loadEndTime, limit, skip);
 			if (dialog != null && dialog.isShowing()) {
 				dialog.dismiss();
 			}
 		}
 
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.gizwits.gizdataaccess.listener.GizDataAccessSourceListener#didLoadData
-	 * (com.gizwits.gizdataaccess.GizDataAccessSource, org.json.JSONArray,
-	 * com.gizwits.gizdataaccess.entity.GizDataAccessErrorCode,
-	 * java.lang.String)
-	 */
-	@Override
-	public void didLoadData(GizDataAccessSource arg0, JSONArray jsonArray,
-			GizDataAccessErrorCode result, String message) {
-		if (result.getResult() == 0) {
-			if (jsonArray != null) {
-				buffer.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
-				for (int i = 0; i < jsonArray.length(); i++) {
-					try {
-						JSONObject jsonObject = jsonArray.getJSONObject(i);
-						buffer.append("attrs:"
-								+ jsonObject.get("attrs").toString() + "\n");
-						buffer.append("ts:"
-								+ DateUtils.getDateToString(jsonObject
-										.getLong("ts")) + "\n");
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-				}
-			} else {
-				buffer.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
-				buffer.append("暂无数据");
-
-			}
-		} else {
-			buffer.append(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
-			buffer.append("读取失败：" + message);
-		}
-		tvTerminal.setText(buffer.toString());
 	}
 
 	/**
@@ -315,25 +322,81 @@ public class MainActivity extends Activity implements OnClickListener,
 	 * @return boolean true or false
 	 */
 	private static boolean isEmpty(String str) {
-		if (str == null || str == "" || str.trim().equals(""))
-			return true;
-		return false;
+		return RegexUtils.isEmpty(str);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.gizwits.gizdataaccess.listener.GizDataAccessSourceListener#didSaveData
-	 * (com.gizwits.gizdataaccess.GizDataAccessSource,
-	 * com.gizwits.gizdataaccess.entity.GizDataAccessErrorCode,
-	 * java.lang.String)
-	 */
 	@Override
-	public void didSaveData(GizDataAccessSource arg0,
-			GizDataAccessErrorCode arg1, String arg2) {
-		// TODO Auto-generated method stub
-
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main_menu, menu);
+		return super.onCreateOptionsMenu(menu);
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_changePsw:
+			if (Constant.loginType != LoginType.LoginReal) {
+				Toast.makeText(MainActivity.this, "非实名用户不能修改密码",
+						Toast.LENGTH_SHORT).show();
+				;
+			} else {
+				Intent intent = new Intent(MainActivity.this,
+						ChangePswActivity.class);
+				startActivity(intent);
+			}
+
+			return true;
+		case R.id.action_logout:
+			onBackPressed();
+			return true;
+		case R.id.action_change2phone:
+			if (Constant.loginType == LoginType.LoginReal) {
+				Intent intent2 = new Intent(MainActivity.this,
+						ChangePhoneActivity.class);
+				startActivity(intent2);
+			} else {
+				Toast.makeText(MainActivity.this, "非实名用户不能使用该功能",
+						Toast.LENGTH_SHORT).show();
+			}
+			return true;
+		case R.id.action_change2mail:
+			if (Constant.loginType == LoginType.LoginReal) {
+				Intent intent3 = new Intent(MainActivity.this,
+						ChangeMailActivity.class);
+				startActivity(intent3);
+			} else {
+				Toast.makeText(MainActivity.this, "非实名用户不能使用该功能",
+						Toast.LENGTH_SHORT).show();
+			}
+			return true;
+		case R.id.action_anonychange2phone:
+			if (Constant.loginType == LoginType.loginAnonymous) {
+				Intent intent4 = new Intent(MainActivity.this,
+						TransPhoneActivity.class);
+				startActivity(intent4);
+			} else {
+				Toast.makeText(MainActivity.this, "非匿名用户不能使用该功能",
+						Toast.LENGTH_SHORT).show();
+			}
+			return true;
+		case R.id.action_anonychange2mail:
+			if (Constant.loginType == LoginType.loginAnonymous) {
+				Intent intent5 = new Intent(MainActivity.this,
+						TransMailActivity.class);
+				startActivity(intent5);
+			} else {
+				Toast.makeText(MainActivity.this, "非匿名用户不能使用该功能",
+						Toast.LENGTH_SHORT).show();
+			}
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
+	public void onBackPressed() {
+		finish();
+	}
 }
