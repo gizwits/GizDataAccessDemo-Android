@@ -23,8 +23,12 @@ import java.util.regex.Pattern;
 import org.json.JSONArray;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -49,8 +53,7 @@ import com.gizwits.gizdataaccesssdkdemo.utils.NetworkUtils;
  * 
  * @author Lien
  */
-public class SaveActivity extends Activity implements
-		GizDataAccessSourceListener {
+public class SaveActivity extends Activity {
 
 	/** 年份输入框. */
 	EditText etYear;
@@ -76,6 +79,30 @@ public class SaveActivity extends Activity implements
 	/** 上传数据按钮. */
 	Button btnSave;
 
+	private GizDataAccessSourceListener accessSourceListener = new GizDataAccessSourceListener() {
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see com.gizwits.gizdataaccess.listener.GizDataAccessSourceListener#
+		 * didSaveData (com.gizwits.gizdataaccess.GizDataAccessSource,
+		 * com.gizwits.gizdataaccess.entity.GizDataAccessErrorCode,
+		 * java.lang.String)
+		 */
+		@Override
+		public void didSaveData(GizDataAccessSource source,
+				GizDataAccessErrorCode result, String message) {
+			setProgressBarIndeterminateVisibility(false);
+			if (result.getResult() == 0) {
+				Toast.makeText(SaveActivity.this, "上传成功！", Toast.LENGTH_SHORT)
+						.show();
+			} else {
+				Toast.makeText(SaveActivity.this, "上传失败:" + message,
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	};
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -84,7 +111,7 @@ public class SaveActivity extends Activity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.activity_save);
 		initViews();
 	}
@@ -149,51 +176,15 @@ public class SaveActivity extends Activity implements
 			Log.i("saveData", "timestr=" + DateUtils.getDateToString(time));
 			Log.i("saveData", "json=" + strJson);
 			// 上传数据
-			new GizDataAccessSource(this)
-					.saveData(Constant.TOKEN, Constant.PRODUCTKEY,
-							Constant.DEVICE_SN, time, strJson + "");
+			new GizDataAccessSource(accessSourceListener).saveData(
+					Constant.TOKEN, Constant.PRODUCTKEY, Constant.DEVICE_SN,
+					time, strJson + "");
 			// } catch (JSONException e) {
 			// e.printStackTrace();
 			// Toast.makeText(SaveActivity.this, "json数据格式异常,请检查",
 			// Toast.LENGTH_SHORT).show();
 			// }
 
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.gizwits.gizdataaccess.listener.GizDataAccessSourceListener#didLoadData
-	 * (com.gizwits.gizdataaccess.GizDataAccessSource, org.json.JSONArray,
-	 * com.gizwits.gizdataaccess.entity.GizDataAccessErrorCode,
-	 * java.lang.String)
-	 */
-	@Override
-	public void didLoadData(GizDataAccessSource arg0, JSONArray arg1,
-			GizDataAccessErrorCode arg2, String arg3) {
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.gizwits.gizdataaccess.listener.GizDataAccessSourceListener#didSaveData
-	 * (com.gizwits.gizdataaccess.GizDataAccessSource,
-	 * com.gizwits.gizdataaccess.entity.GizDataAccessErrorCode,
-	 * java.lang.String)
-	 */
-	@Override
-	public void didSaveData(GizDataAccessSource source,
-			GizDataAccessErrorCode result, String message) {
-		if (result.getResult() == 0) {
-			Toast.makeText(SaveActivity.this, "上传成功！", Toast.LENGTH_SHORT)
-					.show();
-		} else {
-			Toast.makeText(SaveActivity.this, "上传失败:" + message,
-					Toast.LENGTH_SHORT).show();
 		}
 	}
 

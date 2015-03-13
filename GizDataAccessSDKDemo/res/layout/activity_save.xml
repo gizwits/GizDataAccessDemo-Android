@@ -107,9 +107,10 @@
         android:background="@android:color/darker_gray"
         android:gravity="left|top"
         android:text=" {\n
-        &quot;weight&quot;:120,\n
-        &quot;fat&quot;:20,\n
-        &quot;remark&quot;: &quot;超重&quot;\n
+        &quot;bool&quot;:true,\n
+        &quot;enum&quot;:&quot;a&quot;,\n
+        &quot;string&quot;:&quot;str&quot;,\n
+        &quot;num&quot;:32\n
  }" />
 
     <Button

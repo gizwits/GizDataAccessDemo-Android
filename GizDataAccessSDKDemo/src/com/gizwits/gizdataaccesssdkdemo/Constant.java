@@ -17,6 +17,8 @@
  */
 package com.gizwits.gizdataaccesssdkdemo;
 
+import com.gizwits.gizdataaccesssdkdemo.utils.LoginType;
+
 // TODO: Auto-generated Javadoc
 /**
  *  
@@ -29,15 +31,13 @@ package com.gizwits.gizdataaccesssdkdemo;
 public class Constant {
 	
 	/** The Constant PRODUCTKEY. */
-//	public final static String PRODUCTKEY = "e053e0911c814ab38667c0116f8c90c3";
-	public final static String PRODUCTKEY = "25ee6d29f9f74743a6ee4fdcca8d4869";
+//	public final static String PRODUCTKEY = "25ee6d29f9f74743a6ee4fdcca8d4869";
+	public final static String PRODUCTKEY = "fa772600fc73479ab0b35af373dde5d6";
 	
 	/** The Constant APPKEY. */
-//	public final static String APPKEY = "6647219033b7434789969e2551be6997";
-	public final static String APPKEY = "7a9a7b387df64979ac67518fb0b6649e";
+//	public final static String APPKEY = "7a9a7b387df64979ac67518fb0b6649e";
+	public final static String APPKEY = "fdcbf5f389fd40d99a01828f7f5029de";
 	
-	/** The Constant DOMIN_NAME. */
-	public final static String DOMIN_NAME = "http://apiv4.iotsdk.com";
 	
 	/** The Constant DEVICE_SN. */
 	public final static String DEVICE_SN = "abcdabcd";
@@ -47,4 +47,6 @@ public class Constant {
 	
 	/** The uid. */
 	public static String UID = "";
+	
+	public static LoginType loginType ;
 }

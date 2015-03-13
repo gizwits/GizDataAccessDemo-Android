@@ -2,16 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
+    android:gravity="center"
     android:orientation="vertical" >
 
-    <Button
-        android:layout_marginTop="20dp"
-        android:id="@+id/btnLoginAnonymous"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="匿名登录"
-        android:textSize="18sp" />
+    
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -27,10 +21,37 @@
             android:textSize="16dp" />
 
         <EditText
-            android:id="@+id/et_username"
+            android:id="@+id/etUsername"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:textSize="16dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_code"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/etCode"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="16dp" />
+
+        <Button
+            android:id="@+id/btnRequestCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="获取验证码"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -47,60 +68,7 @@
             android:textSize="16dp" />
 
         <EditText
-            android:id="@+id/et_password"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:textSize="16dp" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="实名登录"
-        android:textSize="18sp" />
-
-    <RadioGroup
-        android:id="@+id/rg_thirdAccount"
-        android:layout_width="fill_parent"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_height="wrap_content" >
-
-        <RadioButton
-            android:id="@+id/rb_baidu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:text="百度"
-            />
-        <RadioButton
-            android:id="@+id/rb_sina"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:text="新浪"
-            />
-        <RadioButton
-            android:id="@+id/rb_qq"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:text="qq"
-            />
-    </RadioGroup>
-     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:gravity="center"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/text_uid"
-            android:textSize="16dp" />
-
-        <EditText
-            android:id="@+id/et_uid"
+            android:id="@+id/etPassword"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:textSize="16dp" />
@@ -113,26 +81,21 @@
         android:gravity="center"
         android:orientation="horizontal" >
 
-        <TextView
+        <Button
+            android:id="@+id/btnRegist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_token"
-            android:textSize="16dp" />
+            android:layout_margin="10dp"
+            android:text="转换"
+            android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/et_token"
-            android:layout_width="200dp"
+        <Button
+            android:id="@+id/btnCancle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16dp" />
+            android:layout_margin="10dp"
+            android:text="取消"
+            android:textSize="18sp" />
     </LinearLayout>
-    
-    <Button
-        android:id="@+id/btnThird"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="第三方登录"
-        android:textSize="18sp" />
-
-
 
 </LinearLayout>
