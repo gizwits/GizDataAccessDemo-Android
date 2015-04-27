@@ -20,6 +20,7 @@ package com.gizwits.gizdataaccesssdkdemo.activitys;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -101,6 +102,8 @@ public class LoginActivity extends Activity implements OnClickListener,
 						MainActivity.class);
 				Constant.TOKEN = token;
 				Constant.UID = uid;
+				Log.i("LoginActivity", "token="+token);
+				Log.i("LoginActivity", "uid="+uid);
 				startActivity(intent);
 			} else {
 				enableBtns(true);
