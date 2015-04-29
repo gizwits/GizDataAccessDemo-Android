@@ -17,6 +17,8 @@
  */
 package com.gizwits.gizdataaccesssdkdemo.activitys;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -79,6 +81,8 @@ public class SaveActivity extends Activity {
 	/** 上传数据按钮. */
 	Button btnSave;
 
+	EditText etTimes;
+
 	private GizDataAccessSourceListener accessSourceListener = new GizDataAccessSourceListener() {
 
 		/*
@@ -127,6 +131,7 @@ public class SaveActivity extends Activity {
 		etMin = (EditText) findViewById(R.id.etMin);
 		etSec = (EditText) findViewById(R.id.etSec);
 		etJson = (EditText) findViewById(R.id.etJson);
+		etTimes = (EditText) findViewById(R.id.etTimes);
 		btnSave = (Button) findViewById(R.id.btnSave);
 		btnSave.setOnClickListener(new OnClickListener() {
 
@@ -155,6 +160,7 @@ public class SaveActivity extends Activity {
 		String strMin = etMin.getText().toString();
 		String strSec = etSec.getText().toString();
 		String strJson = replaceBlank(etJson.getText().toString().trim());
+		int repeatTimes = Integer.parseInt(etTimes.getText().toString());
 		// 非空判断
 		if (isEmpty(strYear) || isEmpty(strMon) || isEmpty(strDay)
 				|| isEmpty(strHour) || isEmpty(strMin) || isEmpty(strSec)) {
@@ -162,6 +168,9 @@ public class SaveActivity extends Activity {
 					.show();
 		} else if (isEmpty(strJson)) {
 			Toast.makeText(SaveActivity.this, "请输入正确的Json串", Toast.LENGTH_SHORT)
+					.show();
+		} else if (repeatTimes <= 0) {
+			Toast.makeText(SaveActivity.this, "请输入大于0的重复次数", Toast.LENGTH_SHORT)
 					.show();
 		} else {
 
@@ -174,11 +183,17 @@ public class SaveActivity extends Activity {
 					+ strHour + strMin + strSec + "000");
 			Log.i("saveData", "timelong=" + time);
 			Log.i("saveData", "timestr=" + DateUtils.getDateToString(time));
+			strJson = "{\"attrs\":" + strJson + ",\"ts\":" + time + "}";
 			Log.i("saveData", "json=" + strJson);
+
+			List<String> datas = new ArrayList<String>();
+			for(int i=0;i<repeatTimes;i++){
+				datas.add(strJson);
+			}
 			// 上传数据
 			new GizDataAccessSource(accessSourceListener).saveData(
 					Constant.TOKEN, Constant.PRODUCTKEY, Constant.DEVICE_SN,
-					time, strJson + "");
+					datas);
 			// } catch (JSONException e) {
 			// e.printStackTrace();
 			// Toast.makeText(SaveActivity.this, "json数据格式异常,请检查",

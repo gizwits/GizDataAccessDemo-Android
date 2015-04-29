@@ -97,27 +97,56 @@
             android:text="秒" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="重复次数" />
+
+        <EditText
+            android:id="@+id/etTimes"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:text="1" />
+    </LinearLayout>
+
     <EditText
         android:id="@+id/etJson"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_margin="20dp"
-        android:textSize="16sp"
         android:layout_weight="4"
         android:background="@android:color/darker_gray"
         android:gravity="left|top"
         android:text=" {\n
-        &quot;bool&quot;:true,\n
-        &quot;enum&quot;:&quot;a&quot;,\n
-        &quot;string&quot;:&quot;str&quot;,\n
-        &quot;num&quot;:32\n
- }" />
+        &quot;weight&quot;:55,\n
+        &quot;fat&quot;:21,\n
+        &quot;remark&quot;:&quot;toofat&quot;,\n
+        &quot;suggestion&quot;:&quot;早睡&quot;\n
+        }"
+        android:textSize="13sp" />
 
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="100dp"
-        android:layout_height="45dp"
-        android:layout_margin="20dp"
-        android:text="上传数据" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:text="上传数据" />
+    </LinearLayout>
 
 </LinearLayout>

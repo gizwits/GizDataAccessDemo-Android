@@ -31,12 +31,12 @@ import com.gizwits.gizdataaccesssdkdemo.utils.LoginType;
 public class Constant {
 	
 	/** The Constant PRODUCTKEY. */
-//	public final static String PRODUCTKEY = "25ee6d29f9f74743a6ee4fdcca8d4869";
-	public final static String PRODUCTKEY = "fa772600fc73479ab0b35af373dde5d6";
+	public final static String PRODUCTKEY = "25ee6d29f9f74743a6ee4fdcca8d4869";
+//	public final static String PRODUCTKEY = "fa772600fc73479ab0b35af373dde5d6";
 	
 	/** The Constant APPKEY. */
-//	public final static String APPKEY = "7a9a7b387df64979ac67518fb0b6649e";
-	public final static String APPKEY = "fdcbf5f389fd40d99a01828f7f5029de";
+	public final static String APPKEY = "7a9a7b387df64979ac67518fb0b6649e";
+//	public final static String APPKEY = "fdcbf5f389fd40d99a01828f7f5029de";
 	
 	
 	/** The Constant DEVICE_SN. */
